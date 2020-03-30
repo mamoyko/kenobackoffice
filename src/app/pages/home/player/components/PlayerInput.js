@@ -158,6 +158,134 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
+                <Col xs={12}>
+                    <InputGroup className='mb-4'>
+                        <TextField
+                        onChange={props.handleChange}
+                        id='affiliate'
+                        type='text'
+                        label='Affiliate'
+                        className=''
+                        value={props.data.affiliate}
+                        variant='outlined'
+                        InputLabelProps={{
+                            shrink: true
+                        }}
+                        size='small'
+                        fullWidth={true}
+                        />
+                    </InputGroup>
+                </Col>
+            </Row>
+            <Row>
+              <Col xs={6}>
+              <InputGroup className='mb-4'>
+                <TextField
+                onChange={props.handleChange}
+                id='street'
+                type='text'
+                label='Street'
+                className=''
+                value={props.data.street}
+                variant='outlined'
+                InputLabelProps={{
+                    shrink: true
+                }}
+                size='small'
+                fullWidth={true}
+                />
+              </InputGroup>
+              </Col>
+              <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={props.handleChange}
+                  id='unitNo'
+                  type='text'
+                  label='Unit No'
+                  className=''
+                  value={props.data.unitNo}
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={props.handleChange}
+                  id='city'
+                  type='text'
+                  label='City'
+                  className=''
+                  value={props.data.city}
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={props.handleChange}
+                  id='province'
+                  type='text'
+                  label='Province'
+                  className=''
+                  value={props.data.province}
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={props.handleChange}
+                  id='country'
+                  type='text'
+                  label='Country'
+                  className=''
+                  value={props.data.country}
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={props.handleChange}
+                  id='postalCode'
+                  type='text'
+                  label='PostalCode'
+                  className=''
+                  value={props.data.postalCode}
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
             </Row>
             <Row>
                 <Col xs={12}>

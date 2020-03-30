@@ -20,21 +20,17 @@ class PlayerController {
     }
 
     _updatePlayer = async (req,res,next) => {
-        
-        let data = req.body.player;
-        let player = await PlayerModel.findById(data._id);
+        try {
 
-        player.name = data.name;
-        player.email = data.email;
-        player.username = data.username;
-        player.password = data.password;
-        player.phone = data.phone;
-        player.balance = data.balance;
-        player.currency = data.currency;
-        player.provider = data.provider;
+            let newPlayer = await PlayerModel.findOneAndUpdate({_id : req.body.player._id}, req.body.player);
+            res.json(newPlayer);
 
-        let newPlayer = await player.save();
-        res.json(newPlayer)
+        } catch(err){
+            res.json({
+                err: 'error',
+                message: err
+            })
+        }
     }
 
     _deletePlayer = async (req,res,next) => {

@@ -18,11 +18,8 @@ const PlayerSchema = new Schema({
         type: String
   },
   password:{
-        type: String
-  },
-
-  phone : {
-      type: String
+        type: String,
+        default: 'admin123'
   },
 
   balance: {
@@ -40,7 +37,24 @@ const PlayerSchema = new Schema({
     default: true
   },
 
-  provider: {
+  address: {
+    street: {type: String},
+    unitNo: {type: String},
+    city: {type: String},
+    province: {type: String},
+    country: {type: String},
+    postalCode: {type: String}
+  },
+
+  phone : {
+    type: String
+  },
+
+  affiliate: {
+    type: String
+  },
+
+ provider: {
       providerName: String,
       providerLogo: String
   },

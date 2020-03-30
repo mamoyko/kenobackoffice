@@ -20,7 +20,14 @@ const PlayerViewComponent = () => {
     email: '',
     phone: '',
     balance: '',
-    currency: 'USD'
+    currency: 'USD',
+    affiliate: '',
+    street: '',
+    unitNo: '',
+    city: '',
+    province: '',
+    country: '',
+    postalCode: ''
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -100,39 +107,39 @@ const PlayerViewComponent = () => {
 
   const handleSubmitBusiness = async e => {
     e.preventDefault();
+
+    let obj = {
+      _id: input._id,
+      name: {
+          firstName: input.firstName,
+          middleName: input.middleName,
+          lastName: input.lastName
+      },
+      email: input.email,
+      username: input.username,
+      phone: input.phone,
+      balance: input.balance,
+      currency: input.currency,
+      affiliate : input.affiliate,
+      address: {
+        street: input.street,
+        unitNo: input.unitNo,
+        city: input.city,
+        province: input.province,
+        country: input.country,
+        postalCode: input.postalCode
+      }
+  }
+
     if (isUpdate) {
       try {
-        let obj = {
-            _id: input._id,
-            name: {
-                firstName: input.firstName,
-                middleName: input.middleName,
-                lastName: input.lastName
-            },
-            email: input.email,
-            username: input.username,
-            phone: input.phone,
-            balance: input.balance,
-            currency: input.currency
-        };
         await updatePlayer(obj);
         notify({ success: true, message: 'Success updating business.' });
       } catch (error) {}
     }
     if (!isUpdate) {
       try {
-        let obj = {
-            name: {
-                firstName: input.firstName,
-                middleName: input.middleName,
-                lastName: input.lastName
-            },
-            email: input.email,
-            username: input.username,
-            phone: input.phone,
-            balance: input.balance,
-            currency: input.currency
-        };
+        delete obj._id
         await addPlayer(obj);
         notify({ success: true, message: 'Success adding business.' });
       } catch (error) {}
@@ -151,7 +158,14 @@ const PlayerViewComponent = () => {
         username: data.username,
         phone: data.phone,
         balance: data.balance,
-        currency: data.currency
+        currency: data.currency,
+        affiliate: data.affiliate,
+        street: data.address.street,
+        unitNo: data.address.unitNo,
+        city: data.address.city,
+        province: data.address.province,
+        country: data.address.country,
+        postalCode: data.address.postalCode
     });
     setIsModalOpen(true);
     setRerender(!reRender);

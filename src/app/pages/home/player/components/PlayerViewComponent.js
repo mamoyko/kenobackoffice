@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch
+} from "react-router-dom";
 import { getPlayer, addPlayer, updatePlayer, deletePlayer } from '../../../../crud/player.crud';
 import TableModal from '../../../../partials/shared/Modal';
 import { Button, CircularProgress } from '@material-ui/core';
@@ -53,7 +60,7 @@ const PlayerViewComponent = () => {
                 render: rowData => rowData.name.firstName
             },
             { title: 'Last name', field: 'name',
-                render: rowData => rowData.name.lastName
+              render: rowData => rowData.name.lastName
             },
             { title: 'Email', field: 'email' },
             { title: 'Phone', field: 'phone' },
@@ -67,17 +74,19 @@ const PlayerViewComponent = () => {
               return (
                 <Row>
                   <Col>
+                  <Link to={`/players/${data._id}`}>
                     <Button
                       variant='contained'
                       color='secondary'
-                      title={data.id}
-                      onClick={() => {
-                        upPlayer(data);
-                        setIsUpdate(true);
-                      }}
+                      title={data._id}
+                      // onClick={() => {
+                      //   upPlayer(data);
+                      //   setIsUpdate(true);
+                      // }}
                     >
-                      UPDATE
+                      Details
                     </Button>
+                    </Link>
                   </Col>
                   <Col>
                     <Button
@@ -167,7 +176,7 @@ const PlayerViewComponent = () => {
         country: data.address.country,
         postalCode: data.address.postalCode
     });
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
     setRerender(!reRender);
   };
 

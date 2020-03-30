@@ -9,6 +9,8 @@ const PlayerRouter = express.Router();
 
 PlayerRouter.get('/', authenticateJWT, playerCtrl._getPlayer);
 
+PlayerRouter.get('/:id', authenticateJWT, playerCtrl._getPlayerById);
+
 PlayerRouter.post('/', authenticateJWT, playerCtrl._addPlayer);
 
 PlayerRouter.patch('/', authenticateJWT, playerCtrl._updatePlayer);

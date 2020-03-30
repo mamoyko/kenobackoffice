@@ -13,6 +13,12 @@ class PlayerController {
         })
     }
 
+
+    _getPlayerById = async (req,res,next) => {
+        let data = await PlayerModel.findById(req.params.id);
+        res.json({data:data})
+    }
+
     _addPlayer = async (req,res,next) => {
         let data = req.body.player;
         let player = await PlayerModel.create(data);

@@ -7,6 +7,10 @@ export function getPlayer(email, password) {
   return axios.get(`${API_URL}/${PLAYER}`);
 }
 
+export function getPlayerById(id){
+    return axios.get(`${API_URL}/${PLAYER}/${id}`);
+}
+
 export function addPlayer(player) {
     return axios.post(`${API_URL}/${PLAYER}`, { player });
 }

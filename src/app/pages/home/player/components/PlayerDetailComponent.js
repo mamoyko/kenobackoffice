@@ -1,59 +1,197 @@
-import React from 'react';
-import { TextField, Button } from '@material-ui/core';
-import { Container, InputGroup, Row, Col, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import MaterialTable from 'material-table';
+import {
+  Portlet,
+  PortletBody,
+  PortletHeader,
+  PortletHeaderToolbar
+} from "../../../../partials/content/Portlet";
+import { getPlayerById, updatePlayer } from '../../../../crud/player.crud';
+import TableModal from '../../../../partials/shared/Modal';
+import { Button, CircularProgress,TextField } from '@material-ui/core';
+import { Container, InputGroup, Row, Col } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const BusinessInput = props => {
+const PlayerDetailComponent = (props) => {
+  const [state, setState] = useState([]);
+
+  const initialInput = {
+    _id: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    phone: '',
+    balance: '',
+    currency: 'USD',
+    affiliate: '',
+    street: '',
+    unitNo: '',
+    city: '',
+    province: '',
+    country: '',
+    postalCode: ''
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [input, setInput] = useState(initialInput);
+  const [reRender, setRerender] = useState(false); // Re render table after updating
+
+  const notify = data => {
+    if (data.success) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await getPlayerById(props.match.params.id);
+        // upPlayer(response.data.data);
+        upPlayer(response.data.data)
+    };
+    fetchData();
+  },[]);
+
+  const handleChange = e => {
+    setInput({
+      ...input,
+      [e.target.id]: e.target.value
+    });
+    console.log(input)
+  };
+
+  const handleSubmitPlayer = async e => {
+    e.preventDefault();
+
+    let obj = {
+      _id: input._id,
+      name: {
+          firstName: input.firstName,
+          middleName: input.middleName,
+          lastName: input.lastName
+      },
+      email: input.email,
+      username: input.username,
+      phone: input.phone,
+      balance: input.balance,
+      currency: input.currency,
+      affiliate : input.affiliate,
+      address: {
+        street: input.street,
+        unitNo: input.unitNo,
+        city: input.city,
+        province: input.province,
+        country: input.country,
+        postalCode: input.postalCode
+      }
+    }
+
+    try {
+      await updatePlayer(obj);
+      notify({ success: true, message: 'Success updating business.' });
+    } catch (error) {}
+  };
+
+  const upPlayer = data => {
+    setInput({
+        _id : data._id,
+        firstName: data.name.firstName,
+        middleName: data.name.middleName,
+        lastName: data.name.lastName,
+        email: data.email,
+        username: data.username,
+        phone: data.phone,
+        balance: data.balance,
+        currency: data.currency,
+        affiliate: data.affiliate,
+        street: data.address.street,
+        unitNo: data.address.unitNo,
+        city: data.address.city,
+        province: data.address.province,
+        country: data.address.country,
+        postalCode: data.address.postalCode
+    });
+    //setIsModalOpen(true);
+    setRerender(!reRender);
+  };
+
+  const delPlayer = async id => {
+    // await deletePlayer(id);
+    setRerender(!reRender);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <Container>
-      <form onSubmit={props.handleSubmit}>
-
-            <Row>
-                <Col xs={6}>
+    <>
+    <Container fluid>
+      <ToastContainer />
+        <Row>
+          <Portlet fluidHeight={true}>
+            <PortletHeader
+              title="Player Details"
+              toolbar={
+                <PortletHeaderToolbar>
+                </PortletHeaderToolbar>
+              }
+            />
+            <PortletBody>
+              <div style={{flexDirection:"row",display:"flex"}}>
+                 <Col xs={6}>
+                  <InputGroup className='mb-4'>
+                    <TextField
+                    onChange={handleChange}
+                    value={input.firstName}
+                    id='firstName'
+                    type='text'
+                    label='First Name'
+                    className=''
+                    variant='outlined'
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                    size='small'
+                    fullWidth={true}
+                    required
+                  />
+              </InputGroup>
+          </Col>
+                  <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
-                        id='firstName'
-                        type='text'
-                        label='First Name'
-                        className=''
-                        value={props.data.firstName}
-                        variant='outlined'
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        size='small'
-                        fullWidth={true}
-                        required
-                        />
-                    </InputGroup>
-                </Col>
-                <Col xs={6}>
-                    <InputGroup className='mb-4'>
-                        <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.middleName}
                         id='middleName'
                         type='text'
                         label='Middle Name'
                         className=''
-                        value={props.data.middleName}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
                         }}
                         size='small'
                         fullWidth={true}
+                        required
                         />
                     </InputGroup>
-                </Col>
+          </Col>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
                         id='lastName'
+                        value={input.lastName}
                         type='text'
                         label='Last Name'
                         className=''
-                        value={props.data.lastName}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -67,12 +205,12 @@ const BusinessInput = props => {
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.username}
                         id='username'
                         type='text'
                         label='Username'
                         className=''
-                        value={props.data.username}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -83,15 +221,17 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.email}
                         id='email'
                         type='text'
                         label='Email'
                         className=''
-                        value={props.data.email}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -105,12 +245,12 @@ const BusinessInput = props => {
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.phone}
                         id='phone'
                         type='text'
                         label='Phone'
                         className=''
-                        value={props.data.phone}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -121,15 +261,17 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.balance}
                         id='balance'
                         type='text'
                         label='Balance'
                         className=''
-                        value={props.data.balance}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -142,12 +284,12 @@ const BusinessInput = props => {
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.currency}
                         id='currency'
                         type='text'
                         label='Currency'
                         className=''
-                        value={props.data.currency}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -158,15 +300,17 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={12}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
+                        onChange={handleChange}
+                        value={input.affiliate}
                         id='affiliate'
                         type='text'
                         label='Affiliate'
                         className=''
-                        value={props.data.affiliate}
                         variant='outlined'
                         InputLabelProps={{
                             shrink: true
@@ -176,35 +320,35 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
-            </Row>
-            <Row>
-              <Col xs={6}>
-              <InputGroup className='mb-4'>
-                <TextField
-                onChange={props.handleChange}
-                id='street'
-                type='text'
-                label='Street'
-                className=''
-                value={props.data.street}
-                variant='outlined'
-                InputLabelProps={{
-                    shrink: true
-                }}
-                size='small'
-                fullWidth={true}
-                />
-              </InputGroup>
-              </Col>
-              <Col xs={6}>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
+                <Col xs={6}>
                 <InputGroup className='mb-4'>
                   <TextField
-                  onChange={props.handleChange}
+                  onChange={handleChange}
+                  value={input.street}
+                  id='street'
+                  type='text'
+                  label='Street'
+                  className=''
+                  variant='outlined'
+                  InputLabelProps={{
+                      shrink: true
+                  }}
+                  size='small'
+                  fullWidth={true}
+                  />
+                </InputGroup>
+              </Col>
+                <Col xs={6}>
+                <InputGroup className='mb-4'>
+                  <TextField
+                  onChange={handleChange}
+                  value={input.unitNo}
                   id='unitNo'
                   type='text'
                   label='Unit No'
                   className=''
-                  value={props.data.unitNo}
                   variant='outlined'
                   InputLabelProps={{
                       shrink: true
@@ -214,15 +358,17 @@ const BusinessInput = props => {
                   />
                 </InputGroup>
               </Col>
-              <Col xs={6}>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
+                <Col xs={6}>
                 <InputGroup className='mb-4'>
                   <TextField
-                  onChange={props.handleChange}
+                  onChange={handleChange}
+                  value={input.city}
                   id='city'
                   type='text'
                   label='City'
                   className=''
-                  value={props.data.city}
                   variant='outlined'
                   InputLabelProps={{
                       shrink: true
@@ -232,15 +378,15 @@ const BusinessInput = props => {
                   />
                 </InputGroup>
               </Col>
-              <Col xs={6}>
+                <Col xs={6}>
                 <InputGroup className='mb-4'>
                   <TextField
-                  onChange={props.handleChange}
+                  onChange={handleChange}
+                  value={input.province}
                   id='province'
                   type='text'
                   label='Province'
                   className=''
-                  value={props.data.province}
                   variant='outlined'
                   InputLabelProps={{
                       shrink: true
@@ -250,15 +396,17 @@ const BusinessInput = props => {
                   />
                 </InputGroup>
               </Col>
-              <Col xs={6}>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
+                <Col xs={6}>
                 <InputGroup className='mb-4'>
                   <TextField
-                  onChange={props.handleChange}
+                  onChange={handleChange}
+                  value={input.country}
                   id='country'
                   type='text'
                   label='Country'
                   className=''
-                  value={props.data.country}
                   variant='outlined'
                   InputLabelProps={{
                       shrink: true
@@ -268,15 +416,16 @@ const BusinessInput = props => {
                   />
                 </InputGroup>
               </Col>
-              <Col xs={6}>
+                <Col xs={6}>
                 <InputGroup className='mb-4'>
                   <TextField
-                  onChange={props.handleChange}
+                  onChange={handleChange}
+                  value={input.postalCode}
                   id='postalCode'
                   type='text'
                   label='PostalCode'
                   className=''
-                  value={props.data.postalCode}
+
                   variant='outlined'
                   InputLabelProps={{
                       shrink: true
@@ -286,23 +435,34 @@ const BusinessInput = props => {
                   />
                 </InputGroup>
               </Col>
-            </Row>
-            <Row>
+              </div>
+              <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={12}>
                 <Button
-                    type='submit'
+                    type='button'
                     size='large'
                     className='float-right'
                     variant='contained'
                     color='primary'
+                    onClick={handleSubmitPlayer}
                     >
                     Save
                     </Button>
                 </Col>
-            </Row>
-      </form>
+              </div>
+            </PortletBody>
+          </Portlet>
+        </Row>
     </Container>
+    <Container fluid>
+       <MaterialTable
+          title='Player Bet Records'
+          columns={state.columns}
+          data={state.data}
+        />
+    </Container>
+    </>
   );
 };
 
-export default BusinessInput;
+export default PlayerDetailComponent;

@@ -7,6 +7,7 @@ import { Button, CircularProgress } from '@material-ui/core';
 import { Row, Col, Container } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as moment from 'moment'
 
 const BetViewComponent = () => {
   const [state, setState] = useState(0);
@@ -38,10 +39,10 @@ const BetViewComponent = () => {
     const fetchData = async () => {
     const response = await getBet();
     let data = [];
-    data = response.data.data
     response.data.data.map(o => (o.active === true ? data.push(o) : null));
     setState({
         columns: [
+            { title: 'Transaction id', field: '_id'},
             { title: 'Player name', field: 'player',
                 render: rowData => `${rowData.player.name.firstName} ${rowData.player.name.lastName}`
             },
@@ -54,38 +55,12 @@ const BetViewComponent = () => {
             { title: 'Bet Table', field: 'betTable',
                 render: rowData => rowData.betTable.map((item) => `${item} `)
             },
-        //     {
-        //         title: 'Action',
-        //         field: 'actions',
-        //         width: 200,
-        //         render: data => {
-        //         return (
-        //         <Row>
-        //           <Col>
-        //             <Button
-        //               variant='contained'
-        //               color='secondary'
-        //               title={data.id}
-        //               onClick={() => {
-        //                 upPlayer(data);
-        //                 setIsUpdate(true);
-        //               }}
-        //             >
-        //               UPDATE
-        //             </Button>
-        //           </Col>
-        //           <Col>
-        //             <Button
-        //               variant='contained'
-        //               onClick={() => delPlayer(data._id)}
-        //             >
-        //               DELETE
-        //             </Button>
-        //           </Col>
-        //         </Row>
-        //       );
-        //     }
-        //   }
+            { title: 'Table Results', field: 'tableResults',
+              render: rowData => rowData.tableResults.map((item) => `${item} `)
+            },
+            { title: 'Date', field: 'date_created',
+              render: rowData => moment(rowData.date_created).format('LLLL')
+            }
         ],
         data: data
       });

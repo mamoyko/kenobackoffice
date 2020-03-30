@@ -7,11 +7,13 @@ import {
   PortletHeaderToolbar
 } from "../../../../partials/content/Portlet";
 import { getPlayerById, updatePlayer } from '../../../../crud/player.crud';
+import { getBetByPlayer } from '../../../../crud/bet.crud';
 import TableModal from '../../../../partials/shared/Modal';
 import { Button, CircularProgress,TextField } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as moment from 'moment'
 
 const PlayerDetailComponent = (props) => {
   const [state, setState] = useState([]);
@@ -50,8 +52,31 @@ const PlayerDetailComponent = (props) => {
   useEffect(() => {
     const fetchData = async () => {
         const response = await getPlayerById(props.match.params.id);
-        // upPlayer(response.data.data);
-        upPlayer(response.data.data)
+        const betResponse = await getBetByPlayer(response.data.data._id);
+        let data = [];
+        betResponse.data.map(o => (o.active === true ? data.push(o) : null));
+        upPlayer(response.data.data);
+        setState({
+          columns: [
+              { title: 'Transaction id', field: '_id'},
+              { title: 'Fullname', field: 'name',
+                  render: rowData => `${rowData.player.name.firstName} ${rowData.player.name.lastName}` 
+              },
+              { title: 'Bet Amount', field: 'betAmount'},
+              { title: 'Win Amount', field: 'WinAmount'},
+              { title: 'Lose Amount', field: 'LoseAmount'},
+              { title: 'Bet Table', field: 'betTable',
+                render: rowData => rowData.betTable.map((item) => `${item} `)
+              },
+              { title: 'Table Results', field: 'tableResults',
+                render: rowData => rowData.tableResults.map((item) => `${item} `)
+              },
+              { title: 'Date', field: 'date_created',
+                render: rowData => moment(rowData.date_created).format('LLLL')
+              }
+          ],
+          data: data
+        });
     };
     fetchData();
   },[]);
@@ -61,7 +86,7 @@ const PlayerDetailComponent = (props) => {
       ...input,
       [e.target.id]: e.target.value
     });
-    console.log(input)
+    // console.log(input)
   };
 
   const handleSubmitPlayer = async e => {
@@ -455,11 +480,19 @@ const PlayerDetailComponent = (props) => {
         </Row>
     </Container>
     <Container fluid>
-       <MaterialTable
-          title='Player Bet Records'
-          columns={state.columns}
-          data={state.data}
-        />
+    {state.data ? (
+        <>
+          <MaterialTable
+            title='Bet Player Records'
+            columns={state.columns}
+            data={state.data}
+          />
+        </>
+      ) : (
+        <div align='center'>
+          <CircularProgress />
+        </div>
+      )}
     </Container>
     </>
   );

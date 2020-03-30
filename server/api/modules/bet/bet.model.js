@@ -11,11 +11,18 @@ player : {
 
 betTable : [String],
 
+tableResults: [String],
+
 betAmount: Number,
 
 WinAmount: Number,
 
 LoseAmount: Number,
+
+active:{
+  type: Boolean,
+  default: true
+},
 
 date_created : {
     type : Date,

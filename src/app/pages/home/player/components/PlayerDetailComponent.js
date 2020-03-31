@@ -94,22 +94,22 @@ const PlayerDetailComponent = (props) => {
 
   const upPlayer = data => {
     setInput({
-        _id : data._id,
-        firstName: data.name.firstName,
-        middleName: data.name.middleName,
-        lastName: data.name.lastName,
-        email: data.email,
-        username: data.username,
-        phone: data.phone,
-        balance: data.balance,
-        currency: data.currency,
-        affiliate: data.affiliate,
-        street: data.address.street,
-        unitNo: data.address.unitNo,
-        city: data.address.city,
-        province: data.address.province,
-        country: data.address.country,
-        postalCode: data.address.postalCode
+        _id : data ? data._id : '',
+        firstName: data.name ? data.name.firstName : '',
+        middleName: data.name ? data.name.middleName : '',
+        lastName: data.name ? data.name.lastName : '',
+        email: data.email ? data.email : '',
+        username: data.username ? data.username : '',
+        phone: data.phone ? data.phone : '',
+        balance: data.balance ? data.balance : '',
+        currency: data.currency ? data.currency : '',
+        affiliate: data.affiliate ? data.affiliate : '',
+        street: data.address ? data.address.street : '',
+        unitNo: data.address ? data.address.unitNo : '',
+        city: data.address ? data.address.city : '',
+        province: data.address ? data.address.province : '',
+        country: data.address ? data.address.country : '',
+        postalCode: data.address ? data.address.postalCode : ''
     });
     setRerender(!reRender);
   };

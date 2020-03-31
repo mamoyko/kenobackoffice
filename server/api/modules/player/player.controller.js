@@ -52,7 +52,6 @@ class PlayerController {
 
     _signInPlayers = async (req,res,next) => {
         let player = req.body.player;
-        console.log(player)
         if (player) {
             let newPlayer = await PlayerModel.findOne({
                 username : player.username

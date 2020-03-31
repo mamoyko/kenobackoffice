@@ -83,6 +83,25 @@ const BusinessInput = props => {
                         />
                     </InputGroup>
                 </Col>
+                <Col xs={12}>
+                    <InputGroup className='mb-4'>
+                        <TextField
+                        onChange={props.handleChange}
+                        id='password'
+                        type='text'
+                        label='Password'
+                        className=''
+                        value={props.data.password}
+                        variant='outlined'
+                        InputLabelProps={{
+                            shrink: true
+                        }}
+                        size='small'
+                        fullWidth={true}
+                        required
+                        />
+                    </InputGroup>
+                </Col>
                 <Col xs={6}>
                     <InputGroup className='mb-4'>
                         <TextField

@@ -24,6 +24,7 @@ const PlayerViewComponent = () => {
     middleName: '',
     lastName: '',
     username: '',
+    password: '',
     email: '',
     phone: '',
     balance: '',
@@ -79,10 +80,6 @@ const PlayerViewComponent = () => {
                       variant='contained'
                       color='secondary'
                       title={data._id}
-                      // onClick={() => {
-                      //   upPlayer(data);
-                      //   setIsUpdate(true);
-                      // }}
                     >
                       Details
                     </Button>
@@ -125,6 +122,7 @@ const PlayerViewComponent = () => {
           lastName: input.lastName
       },
       email: input.email,
+      password: input.password,
       username: input.username,
       phone: input.phone,
       balance: input.balance,
@@ -143,14 +141,14 @@ const PlayerViewComponent = () => {
     if (isUpdate) {
       try {
         await updatePlayer(obj);
-        notify({ success: true, message: 'Success updating business.' });
+        notify({ success: true, message: 'Success updating player.' });
       } catch (error) {}
     }
     if (!isUpdate) {
       try {
         delete obj._id
         await addPlayer(obj);
-        notify({ success: true, message: 'Success adding business.' });
+        notify({ success: true, message: 'Success adding player.' });
       } catch (error) {}
     }
     setIsModalOpen(false);
@@ -165,6 +163,7 @@ const PlayerViewComponent = () => {
         lastName: data.name.lastName,
         email: data.email,
         username: data.username,
+        password: data.password,
         phone: data.phone,
         balance: data.balance,
         currency: data.currency,
@@ -182,6 +181,7 @@ const PlayerViewComponent = () => {
 
   const delPlayer = async id => {
     await deletePlayer(id);
+    notify({ success: false, message: 'deleted player.' });
     setRerender(!reRender);
   };
 

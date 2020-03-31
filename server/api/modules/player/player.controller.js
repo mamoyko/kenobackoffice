@@ -13,9 +13,13 @@ class PlayerController {
         })
     }
 
-
     _getPlayerById = async (req,res,next) => {
         let data = await PlayerModel.findById(req.params.id);
+        res.json({data:data})
+    }
+
+    _getPlayerByAffiliate = async (req,res,next) => {
+        let data = await PlayerModel.find({affiliate:req.params.id});
         res.json({data:data})
     }
 
@@ -71,6 +75,8 @@ class PlayerController {
             }
         }
     }
+
+
 
 }
 

@@ -1,6 +1,29 @@
 import React from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, MenuItem  } from '@material-ui/core';
 import { Container, InputGroup, Row, Col, Form } from 'react-bootstrap';
+
+const leads = [
+    {
+      "id": 1,
+      "leadSourceName": "Lead 1",
+      "leadStatusName": "Lead 1"
+    },
+    {
+        "id": 2,
+        "leadSourceName": "Lead 2",
+        "leadStatusName": "Lead 2"
+    },
+    {
+        "id": 3,
+        "leadSourceName": "Lead 3",
+        "leadStatusName": "Lead 3"
+    },
+    {
+        "id": 4,
+        "leadSourceName": "Lead 4",
+        "leadStatusName": "Lead 5"
+    }
+];
 
 const BusinessInput = props => {
   return (
@@ -180,19 +203,26 @@ const BusinessInput = props => {
                 <Col xs={12}>
                     <InputGroup className='mb-4'>
                         <TextField
-                        onChange={props.handleChange}
-                        id='affiliate'
-                        type='text'
-                        label='Affiliate'
-                        className=''
-                        value={props.data.affiliate}
-                        variant='outlined'
-                        InputLabelProps={{
-                            shrink: true
-                        }}
-                        size='small'
-                        fullWidth={true}
-                        />
+                            onChange={props.handleChange}
+                            select
+                            id="affiliate"
+                            name="affiliate"
+                            label='Affiliate'
+                            className=''
+                            value={props.data.affiliate}
+                            variant='outlined'
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            size='small'
+                            fullWidth={true}
+                        >
+                            {leads.map((option) => (
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.leadSourceName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </InputGroup>
                 </Col>
             </Row>

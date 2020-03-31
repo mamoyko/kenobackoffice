@@ -29,6 +29,14 @@ export default {
         page: "bets",
         translate: "bets",
         bullet: "dot"
+      },
+      {
+        title: "Affiliate",
+        root: true,
+        icon: "flaticon-line-graph",
+        page: "affiliate",
+        translate: "affiliate",
+        bullet: "dot"
       }
     ]
   }

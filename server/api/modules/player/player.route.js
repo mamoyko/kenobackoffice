@@ -11,6 +11,8 @@ PlayerRouter.get('/', authenticateJWT, playerCtrl._getPlayer);
 
 PlayerRouter.get('/:id', authenticateJWT, playerCtrl._getPlayerById);
 
+PlayerRouter.get('/affiliate/:id', playerCtrl._getPlayerByAffiliate)
+
 PlayerRouter.post('/', authenticateJWT, playerCtrl._addPlayer);
 
 PlayerRouter.patch('/', authenticateJWT, playerCtrl._updatePlayer);

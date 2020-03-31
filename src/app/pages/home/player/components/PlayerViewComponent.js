@@ -107,8 +107,9 @@ const PlayerViewComponent = () => {
   const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value
+      [e.target.id ? e.target.id : e.target.name]: e.target.value
     });
+    console.log(input)
   };
 
   const handleSubmitBusiness = async e => {

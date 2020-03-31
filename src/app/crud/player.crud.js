@@ -11,6 +11,10 @@ export function getPlayerById(id){
     return axios.get(`${API_URL}/${PLAYER}/${id}`);
 }
 
+export function getPlayerByAffiliate(id){
+    return axios.get(`${API_URL}/${PLAYER}/affiliate/${id}`);
+}
+
 export function addPlayer(player) {
     return axios.post(`${API_URL}/${PLAYER}`, { player });
 }

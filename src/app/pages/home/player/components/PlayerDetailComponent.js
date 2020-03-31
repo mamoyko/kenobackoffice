@@ -7,9 +7,33 @@ import {
 } from "../../../../partials/content/Portlet";
 import { getPlayerById, updatePlayer } from '../../../../crud/player.crud';
 import PlayerBetComponent from './PlayerBetComponent';
-import { Button, CircularProgress,TextField } from '@material-ui/core';
+import { Button, CircularProgress,TextField, MenuItem } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+
+
+const leads = [
+  {
+    "id": 1,
+    "leadSourceName": "Lead 1",
+    "leadStatusName": "Lead 1"
+  },
+  {
+      "id": 2,
+      "leadSourceName": "Lead 2",
+      "leadStatusName": "Lead 2"
+  },
+  {
+      "id": 3,
+      "leadSourceName": "Lead 3",
+      "leadStatusName": "Lead 3"
+  },
+  {
+      "id": 4,
+      "leadSourceName": "Lead 4",
+      "leadStatusName": "Lead 5"
+  }
+];
 
 const PlayerDetailComponent = (props) => {
   const [playerId, setPlayerId] = useState(0);
@@ -55,9 +79,8 @@ const PlayerDetailComponent = (props) => {
   const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value
+      [e.target.id ? e.target.id : e.target.name]: e.target.value
     });
-    // console.log(input)
   };
 
   const handleSubmitPlayer = async e => {
@@ -290,7 +313,7 @@ const PlayerDetailComponent = (props) => {
               <div style={{flexDirection:"row",display:"flex"}}>
                 <Col xs={12}>
                     <InputGroup className='mb-4'>
-                        <TextField
+                        {/* <TextField
                         onChange={handleChange}
                         value={input.affiliate}
                         id='affiliate'
@@ -303,7 +326,28 @@ const PlayerDetailComponent = (props) => {
                         }}
                         size='small'
                         fullWidth={true}
-                        />
+                        /> */}
+                        <TextField
+                            onChange={handleChange}
+                            select
+                            id="affiliate"
+                            name="affiliate"
+                            label='Affiliate'
+                            className=''
+                            value={input.affiliate}
+                            variant='outlined'
+                            InputLabelProps={{
+                                shrink: true
+                            }}
+                            size='small'
+                            fullWidth={true}
+                        >
+                            {leads.map((option) => (
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.leadSourceName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </InputGroup>
                 </Col>
               </div>

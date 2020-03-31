@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable from 'material-table';
 import {
   Portlet,
   PortletBody,
@@ -7,16 +6,13 @@ import {
   PortletHeaderToolbar
 } from "../../../../partials/content/Portlet";
 import { getPlayerById, updatePlayer } from '../../../../crud/player.crud';
-import { getBetByPlayer } from '../../../../crud/bet.crud';
-import TableModal from '../../../../partials/shared/Modal';
+import PlayerBetComponent from './PlayerBetComponent';
 import { Button, CircularProgress,TextField } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import * as moment from 'moment'
 
 const PlayerDetailComponent = (props) => {
-  const [state, setState] = useState([]);
+  const [playerId, setPlayerId] = useState(0);
 
   const initialInput = {
     _id: '',
@@ -36,8 +32,6 @@ const PlayerDetailComponent = (props) => {
     country: '',
     postalCode: ''
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [reRender, setRerender] = useState(false); // Re render table after updating
 
@@ -52,31 +46,8 @@ const PlayerDetailComponent = (props) => {
   useEffect(() => {
     const fetchData = async () => {
         const response = await getPlayerById(props.match.params.id);
-        const betResponse = await getBetByPlayer(response.data.data._id);
-        let data = [];
-        betResponse.data.map(o => (o.active === true ? data.push(o) : null));
+        setPlayerId({id: response.data.data._id});
         upPlayer(response.data.data);
-        setState({
-          columns: [
-              { title: 'Transaction id', field: '_id'},
-              { title: 'Fullname', field: 'name',
-                  render: rowData => `${rowData.player.name.firstName} ${rowData.player.name.lastName}` 
-              },
-              { title: 'Bet Amount', field: 'betAmount'},
-              { title: 'Win Amount', field: 'WinAmount'},
-              { title: 'Lose Amount', field: 'LoseAmount'},
-              { title: 'Bet Table', field: 'betTable',
-                render: rowData => rowData.betTable.map((item) => `${item} `)
-              },
-              { title: 'Table Results', field: 'tableResults',
-                render: rowData => rowData.tableResults.map((item) => `${item} `)
-              },
-              { title: 'Date', field: 'date_created',
-                render: rowData => moment(rowData.date_created).format('LLLL')
-              }
-          ],
-          data: data
-        });
     };
     fetchData();
   },[]);
@@ -140,17 +111,7 @@ const PlayerDetailComponent = (props) => {
         country: data.address.country,
         postalCode: data.address.postalCode
     });
-    //setIsModalOpen(true);
     setRerender(!reRender);
-  };
-
-  const delPlayer = async id => {
-    // await deletePlayer(id);
-    setRerender(!reRender);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -480,13 +441,9 @@ const PlayerDetailComponent = (props) => {
         </Row>
     </Container>
     <Container fluid>
-    {state.data ? (
+    {playerId.id ? (
         <>
-          <MaterialTable
-            title='Bet Player Records'
-            columns={state.columns}
-            data={state.data}
-          />
+        <PlayerBetComponent id={ playerId.id }/>
         </>
       ) : (
         <div align='center'>

@@ -28,7 +28,7 @@ class HeaderMobile extends React.Component {
       >
         <div className="kt-header-mobile__logo">
           <Link to="/">
-            <img alt="logo" src={toAbsoluteUrl("/media/logos/logo-2-sm.png")} />
+            <img alt="logo" src={toAbsoluteUrl("/media/logos/keno-logo.png")} style={{width:"100px"}}/>
           </Link>
         </div>
 

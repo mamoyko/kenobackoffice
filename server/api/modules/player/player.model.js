@@ -19,7 +19,7 @@ const PlayerSchema = new Schema({
   },
   password:{
         type: String,
-        default: 'admin123'
+        default: 'player123'
   },
 
   balance: {

@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const PlayerViewComponent = () => {
   const [state, setState] = useState(0);
-
+  
   const initialInput = {
     _id: '',
     firstName: '',

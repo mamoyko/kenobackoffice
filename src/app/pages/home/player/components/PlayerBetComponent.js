@@ -21,9 +21,7 @@ const PlayerBetComponent = (props) => {
             { title: 'Player name', field: 'player',
                 render: rowData => `${rowData.player.name.firstName} ${rowData.player.name.lastName}`
             },
-            { title: 'Balance', field: 'balance' ,
-                render: rowData => `${rowData.player.currency} ${rowData.player.balance}`
-            },
+            { title: 'Balance', field: 'playerBalance'},
             { title: 'Bet Amount', field: 'betAmount'},
             { title: 'Win Amount', field: 'WinAmount'},
             { title: 'Lose Amount', field: 'LoseAmount'},

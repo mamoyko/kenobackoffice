@@ -1,4 +1,5 @@
 import betModel from './bet.model';
+import PlayerModel from '../player/player.model';
 
 class BetController {
 
@@ -20,10 +21,13 @@ class BetController {
         }
     }
 
-    _addBet = async(req,res,next) => {
+    _addBet = async (req,res,next) => {
         try {
-            let bet = await betModel.create(req.body)
-            res.json(bet)
+            let bet = req.body;
+            let player = await PlayerModel.findById(req.body.player);
+            bet.playerBalance = player.balance;
+            let newPlayer = await betModel.create(bet);
+            res.json(newPlayer)
         } catch(err){
             console.log({err:true,message: err})
         }

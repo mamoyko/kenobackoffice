@@ -9,6 +9,8 @@ player : {
     ref : 'Player'
 },
 
+playerBalance : Number,
+
 betTable : [String],
 
 tableResults: [String],

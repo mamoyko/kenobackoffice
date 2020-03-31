@@ -8,7 +8,7 @@ import path  from 'path';
 let mongoConnect = `${process.env.MONGODB_URI}`;
 mongoConnect = mongoConnect.trim();
 
-console.log(mongoConnect)
+require('./server/socket');
 
 mongoose.connect(mongoConnect, {
   useNewUrlParser: true,

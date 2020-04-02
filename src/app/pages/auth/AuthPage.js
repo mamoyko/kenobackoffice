@@ -17,12 +17,12 @@ export default function AuthPage() {
           >
             <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
               <div
-                  className="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside"
+                  className="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside login-bg"
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-2.jpg")})`
                   }}
               >
-                <div className="kt-grid__item">
+                <div className="kt-grid__item login-contents">
                   <Link to="/" className="kt-login__logo">
                     <img
                         alt="Logo"
@@ -31,14 +31,14 @@ export default function AuthPage() {
                     />
                   </Link>
                 </div>
-                <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
+                {/* <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
                   <div className="kt-grid__item kt-grid__item--middle">
                     <h3 className="kt-login__title">Kenoblast</h3>
                     <h4 className="kt-login__subtitle">
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
                     </h4>
                   </div>
-                </div>
+                </div> */}
                 <div className="kt-grid__item">
                   <div className="kt-login__info">
                     <div className="kt-login__copyright">
@@ -60,6 +60,15 @@ export default function AuthPage() {
               </div>
 
               <div className="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper">
+                <div className="login--logo">
+                  <Link to="/" className="kt-login__logo">
+                    <img
+                        alt="Logo"
+                        src={toAbsoluteUrl("/media/logos/keno-logo.png")}
+                        // style={{width:"35%"}}
+                    />
+                  </Link>
+                </div>
                 <Switch>
                   <Route path="/auth/login" component={Login} />
                   <Route path="/auth/registration" component={Registration} />

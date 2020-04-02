@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { TextField } from "@material-ui/core";
+import { TextField, Input } from "@material-ui/core";
 import clsx from "clsx";
 import * as auth from "../../store/ducks/auth.duck";
 import { login } from "../../crud/auth.crud";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Row, Col, Button } from "react-bootstrap";
 
 function Login(props) {
   const { intl } = props;
@@ -92,7 +95,7 @@ function Login(props) {
                       })
                     );
                   });
-              }, 1000);
+              }, 1000); 
             }}
           >
             {({
@@ -147,6 +150,14 @@ function Login(props) {
                   />
                 </div>
 
+                  <div className="form-group verify--player">
+                    <FormControlLabel
+                      value="end"
+                      control={<Checkbox color="primary" />}
+                      label="must be 21 years old and above to play"
+                      labelPlacement="end"
+                    />
+                  </div>
                 <div className="kt-login__actions">
                   <Link
                     to="/auth/forgot-password"
@@ -172,6 +183,36 @@ function Login(props) {
               </form>
             )}
           </Formik>
+            <div className="signup--link">
+              <Row>
+                <Col className="signupfree">
+                  <Link className="signup-free" href="./">
+                    Sign up for FREE
+                  </Link>
+                </Col>
+                <Col className="reginfo">
+                  <Link className="reg-info" href="./">
+                    Registration Info
+                  </Link>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                      <Button className="referral-link" href="./">
+                        Refer a friend
+                      </Button>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="privacy-link">
+                     <Link href="./">Privacy Policy</Link>
+                </Col>
+                <Col className="divider"></Col>
+                <Col className="terms-link">
+                     <Link href="./">Terms and Conditions</Link>
+                </Col>
+              </Row>
+            </div>
 
         </div>
       </div>

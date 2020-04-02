@@ -22,6 +22,7 @@
 
         .kt-login__logo {
             display: flex;
+            align-items: center;
         }
 
         .kt-login__title {
@@ -65,7 +66,14 @@
     // Wrapper
     .kt-login__wrapper {
         padding: 3rem 3rem;
-        background: #fff;
+        background: rgba(255,255,255,1);
+        background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(201,201,201,1) 100%);
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(201,201,201,1)));
+        background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(201,201,201,1) 100%);
+        background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(201,201,201,1) 100%);
+        background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(201,201,201,1) 100%);
+        background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(201,201,201,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#c9c9c9', GradientType=1 );
 
         // Head
         .kt-login__head {
@@ -87,18 +95,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            width: 100%;
+            // height: 100%;
+            
 
             // Form Wrapper
             .kt-login__form {
                 width: 100%;
                 max-width: 450px;
+                background-color: white;
 
                 .kt-login__title {
                     display: block;
                     text-align: center;
-                    margin-bottom: 5rem;
+                    // margin-bottom: 5rem;
                     text-decoration: none;
+                    margin-top: 4em;
 
                     > h3 {
                         font-size: 2rem;
@@ -108,7 +120,8 @@
 
                 // Form
                 .kt-form {
-                    margin: 4rem auto;
+                    margin: 3rem 0 auto;
+                    
 
                     .form-group {
                         margin: 0;
@@ -196,6 +209,10 @@
     }
 
     @include kt-tablet-and-mobile() {
+        html,
+        body {
+            overflow: auto;
+        }
         // Aside
         .kt-login__aside {
             width: 100%;
@@ -229,6 +246,7 @@
                 justify-content: center;
                 align-items: center;
                 margin-top: 5rem;
+                width: 100%;
 
                 .kt-login__form {
                     .kt-login__options {
@@ -241,5 +259,138 @@
                 }
             }
         }
+    }
+}
+
+.MuiInputBase-input {
+    padding: 1rem 1.2rem 1.2rem !important;
+}
+.kt-login__actions {
+    button {
+        &#kt_login_signin_submit {
+            padding-right: 2.5rem;
+            background-color: #fdc52c;
+            border-color: #fdc52c;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.kt-grid {
+    &.kt-grid--ver-desktop {
+        &.kt-grid--desktop {
+            > {
+                .kt-grid__item {
+                    &.kt-grid__item--fluid, 
+                    &.kt-grid__item--fluid-desktop {
+                        height: 100vh;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}
+.login--logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login--logo .kt-login__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -130px;
+    opacity: 1;
+    z-index: 1;
+}
+
+.login--logo .kt-login__logo img {
+   width: 100%;
+   height: 100%;
+}
+
+.login-bg {
+    display: none !important;
+}
+
+.kt-login__form {
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 20px 30px 8px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 20px 30px 8px rgba(0,0,0,0.2);
+    box-shadow: 0px 20px 30px 8px rgba(0,0,0,0.2);
+}
+.kt-form {
+    padding: 0 30px 0;
+}
+.signup--link {
+    background-color: grey;
+    padding: 30px;
+    border-radius: 0 0 6px 6px;
+    .reginfo {
+        text-align: right;
+        a {
+            color: white;
+            &:hover {
+                opacity: 0.5;
+                transition: opacity 0.5s;
+            }
+        }
+    }
+    .signupfree {
+        a {
+            color: white;
+            &:hover {
+                opacity: 0.5;
+                transition: opacity 0.5s;
+            }
+        }
+    }
+    .referral-link {
+        background-color: #fdc52c;
+        border: 2px solid #fdc52c;
+        width: 100%;
+        margin: 1em 0;
+        font-size: 1.5rem;
+        &:hover {
+            background-color: transparent;
+            border: 2px solid #fff;
+            transition: all 0.5s;
+        }
+    }
+    .privacy-link {
+        max-width: 44%;
+        text-align: right;
+        a {
+            color: white;
+            &:hover {
+                opacity: 0.5;
+                transition: opacity 0.5s;
+            }
+        }
+    }
+    .terms-link {
+        text-align: left;
+        a {
+            color: white;
+            &:hover {
+                opacity: 0.5;
+                transition: opacity 0.5s;
+            }
+        }
+    }
+    .divider {
+        background-color: white;
+        max-width: 1px;
+        padding: 0;
+        margin: 0;
+        width: 1px;
+        height: 20px;
     }
 }

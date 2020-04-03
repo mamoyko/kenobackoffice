@@ -13,13 +13,17 @@ PlayerRouter.get('/:id', authenticateJWT, playerCtrl._getPlayerById);
 
 PlayerRouter.get('/affiliate/:id', playerCtrl._getPlayerByAffiliate)
 
-PlayerRouter.post('/register', playerCtrl._addPlayer);
-
 PlayerRouter.patch('/', authenticateJWT, playerCtrl._updatePlayer);
 
 PlayerRouter.delete('/:id', authenticateJWT, playerCtrl._deletePlayer);
 
+//for player api
+
 PlayerRouter.post('/login', playerCtrl._signInPlayers);
+
+PlayerRouter.post('/register', playerCtrl._addPlayer);
+
+PlayerRouter.get('/me/details', authenticateJWT, playerCtrl._verifyPlayer);
 
 // UserRouter.delete('/', authenticateJWT, playerCtrl._deletePlayer);
 

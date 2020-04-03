@@ -1,7 +1,7 @@
 import passport from 'passport'
 import PlayerModel from './player.model';
 import UserModel from '../user/user.model';
-import { getJWTFunc } from '../../utils/jwt'
+import { getJWTFunc, decode } from '../../utils/jwt'
 import bcrypt from "bcrypt";
 
 class PlayerController {
@@ -61,8 +61,9 @@ class PlayerController {
             } else {
                 let isMatch = await bcrypt.compare(player.password,newPlayer.password);
                 if (isMatch){
+                    let token = getJWTFunc(newPlayer)
                     res.status(200).json({
-                        data : newPlayer,
+                        accessToken : token,
                         success: true
                     })
                 } else {
@@ -75,6 +76,20 @@ class PlayerController {
         }
     }
 
+    _verifyPlayer = async (req,res,next) => {
+        try {
+            let authorization =  req.headers.authorization;
+            let jwt = authorization.split('Bearer ')[1]
+            let decodeData = await decode(jwt);
+            let player = await PlayerModel.findOne({_id:decodeData._id});
+            res.json(player)
+        } catch(err){
+            res.status(403).json({
+                message: 'invalid player details',
+                success: false
+            })
+        }
+    }
 
 
 }

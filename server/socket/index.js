@@ -9,8 +9,7 @@ const io = require("socket.io")(http);
 
 
 io.on('connect', (socket) => {
-    
-    console.log('a user connected');
+
 
     socket.on('disconnect',() => {
         console.log('user disconnected');
@@ -19,11 +18,12 @@ io.on('connect', (socket) => {
 
     //this if for temporary auth, fucking development timeline
     
+    socket.emit('test connection', "connecting to web sockets")
+
     socket.on('join game', async (data) => {
         try {
-            let base64 = encode.decode(data, 'base64');
-            let player = JSON.parse(base64);
-            let playerData = await PlayerModel.findById(player.data._id);
+            let base64 = await encode.decode(data, 'base64');
+            let playerData = await PlayerModel.findById(base64);
             socket.emit('join game', playerData);
         } catch(err) {
             socket.emit('join game', {err: true, message: 'invalid player'});

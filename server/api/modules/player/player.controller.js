@@ -54,19 +54,19 @@ class PlayerController {
         let player = req.body.player;
         if (player) {
             let newPlayer = await PlayerModel.findOne({
-                username : player.username
+                email : player.email
             });
             if (!newPlayer) {
-                res.json({message:'player not found', success: false})
+                res.status(403).json({message:'player not found', success: false})
             } else {
                 let isMatch = await bcrypt.compare(player.password,newPlayer.password);
                 if (isMatch){
-                    res.json({
+                    res.status(200).json({
                         data : newPlayer,
                         success: true
                     })
                 } else {
-                    res.json({
+                    res.status(403).json({
                         message: 'invalid password',
                         success: false
                     })

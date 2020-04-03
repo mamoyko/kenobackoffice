@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 API endponts for game (since this is still on development), we may improve our approache
 ```
-http://<domain>/api/players/login
+POST http://<domain>/api/players/login
 ```
 ```
 PARAMS
@@ -33,7 +33,7 @@ PARAMS
 ```
 
 ```
-http://<domain>/api/players/register
+POST http://<domain>/api/players/register
 ```
 
 ```
@@ -64,5 +64,23 @@ PARAMS
 }
 ```
 
+#In Game API 
 
+-Get user details
 
+Add Bearer token to header
+```
+GET http://<domain>/api/players/me/details
+
+token is pass through the redirection of game.
+
+Sample response
+
+https://game.kenoblast.com?token=${token}
+
+const config = {
+    headers: { Authorization: `Bearer ${token}` }
+};
+Axios.get('http://<domain>/api/players/me/details',config)
+    .then(console.log).catch(console.log);
+```

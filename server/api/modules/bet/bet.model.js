@@ -4,26 +4,39 @@ let ObjectId = Schema.ObjectId;
 
 const BetSchema = new Schema({
 
-player : {
-    type : ObjectId,
-    ref : 'Player'
+draw: {
+  hit_count : {
+    type : Number,
+  },
+  
+  reward : {
+    type : Number,
+  },
+  
+  keno_count : {
+    type : Number,
+  },
+  
+  keno_drawn: {
+    type: [Number]
+  },
+  
+  keno_played : {
+    type: [Number]
+  }
 },
 
-playerBalance : Number,
+betAmount : {
+  type : Number
+},
 
-betTable : [String],
+winner: {
+  type: Boolean
+},
 
-tableResults: [String],
-
-betAmount: Number,
-
-WinAmount: Number,
-
-LoseAmount: Number,
-
-active:{
-  type: Boolean,
-  default: true
+player : {
+  type : ObjectId,
+  ref : 'Player'
 },
 
 date_created : {

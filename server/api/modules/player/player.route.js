@@ -27,4 +27,5 @@ PlayerRouter.get('/me/details', authenticateJWT, playerCtrl._verifyPlayer);
 
 // UserRouter.delete('/', authenticateJWT, playerCtrl._deletePlayer);
 
+
 module.exports = PlayerRouter;

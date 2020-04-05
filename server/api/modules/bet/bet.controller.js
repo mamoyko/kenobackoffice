@@ -1,5 +1,6 @@
 import betModel from './bet.model';
 import PlayerModel from '../player/player.model';
+import getResponseObj from '../../utils/keno/gameplay';
 
 class BetController {
 
@@ -23,17 +24,19 @@ class BetController {
 
     _addBet = async (req,res,next) => {
         try {
-            let bet = req.body;
-            let player = await PlayerModel.findById(req.body.player);
-            bet.playerBalance = player.balance;
-            let newPlayer = await betModel.create(bet);
-            res.json(newPlayer)
+            let player = await PlayerModel.findById(req.body.id);
+            if(player){
+                let data = await getResponseObj(req.body);
+                let newBet = await betModel.create(data.data);
+                res.json(newBet)
+            }
+
         } catch(err){
-            console.log({err:true,message: err})
+            console.log(err)
+            res.json({error:true})
         }
     }
     
-
 }
 
 

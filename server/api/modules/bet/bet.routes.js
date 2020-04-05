@@ -8,7 +8,7 @@ BetRouter.get('/', authenticateJWT, BetCtrl._getBets);
 
 BetRouter.get('/:id', authenticateJWT, BetCtrl._getBetsById);
 
-BetRouter.post('/', BetCtrl._addBet);
+BetRouter.post('/', authenticateJWT, BetCtrl._addBet);
 
 
 //new bet

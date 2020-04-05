@@ -111,7 +111,7 @@ let data = {
 const config = {
     headers: { Authorization: `Bearer ${token}` }
 };
-Axios.post('http://<domain>/api/players/me/details',data,config)
+Axios.post('http://<domain>/api/bet',data,config)
     .then(console.log).catch(console.log);
 
 

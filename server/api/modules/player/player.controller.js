@@ -44,6 +44,17 @@ class PlayerController {
         res.json({deleted : true})
     }
 
+    _adminAddPlayer = async (req,res,next) => {
+        let data = req.body.player;
+        let player = await PlayerModel.create(data);
+        res.status(200).json({
+            player
+        })
+    }
+
+
+    //open client api
+
     _addPlayer = async (req,res,next) => {
         let data = req.body.player;
         let player = await PlayerModel.create(data);

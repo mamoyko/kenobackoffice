@@ -1,5 +1,5 @@
 import { pick10, getMatches, getWinAmount } from './math';
-
+var uniqid = require('uniqid');
 
 const getResponseObj = async (data) => {
     const arrDrawn = await pick10();
@@ -16,7 +16,8 @@ const getResponseObj = async (data) => {
           },
           betAmount: data.betAmount,
           winner: reward > 0,
-          player: data.id
+          player: data.id,
+          transaction_id: uniqid()
         },
       };
 }

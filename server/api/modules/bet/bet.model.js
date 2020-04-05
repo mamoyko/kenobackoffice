@@ -39,6 +39,15 @@ player : {
   ref : 'Player'
 },
 
+transaction_id: {
+  type: String
+},
+
+active: {
+  type: Boolean,
+  default: true
+},
+
 date_created : {
     type : Date,
     default : function(){

@@ -16,7 +16,7 @@ export function getPlayerByAffiliate(id){
 }
 
 export function addPlayer(player) {
-    return axios.post(`${API_URL}/${PLAYER}`, { player });
+    return axios.post(`${API_URL}/${PLAYER}/admin`, { player });
 }
 
 export function updatePlayer(player){

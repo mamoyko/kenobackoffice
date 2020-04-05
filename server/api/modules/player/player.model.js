@@ -59,6 +59,11 @@ const PlayerSchema = new Schema({
       providerLogo: String
   },
 
+  active: {
+    type: Boolean,
+    default: true
+  },
+
   date_created : {
     type : Date,
     default : function(){

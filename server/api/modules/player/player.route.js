@@ -17,6 +17,8 @@ PlayerRouter.patch('/', authenticateJWT, playerCtrl._updatePlayer);
 
 PlayerRouter.delete('/:id', authenticateJWT, playerCtrl._deletePlayer);
 
+PlayerRouter.post('/admin', authenticateJWT, playerCtrl._adminAddPlayer);
+
 //for player api
 
 PlayerRouter.post('/login', playerCtrl._signInPlayers);

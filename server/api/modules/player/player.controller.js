@@ -23,12 +23,6 @@ class PlayerController {
         res.json({data:data})
     }
 
-    _addPlayer = async (req,res,next) => {
-        let data = req.body.player;
-        let player = await PlayerModel.create(data);
-        res.json(player);
-    }
-
     _updatePlayer = async (req,res,next) => {
         try {
 
@@ -48,6 +42,16 @@ class PlayerController {
         player.active = false;
         let newPlayer = await player.save();
         res.json({deleted : true})
+    }
+
+    _addPlayer = async (req,res,next) => {
+        let data = req.body.player;
+        let player = await PlayerModel.create(data);
+        let token = getJWTFunc(player)
+        res.status(200).json({
+            accessToken : token,
+            success: true
+        })
     }
 
     _signInPlayers = async (req,res,next) => {

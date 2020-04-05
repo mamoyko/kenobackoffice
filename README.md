@@ -84,3 +84,34 @@ const config = {
 Axios.get('http://<domain>/api/players/me/details',config)
     .then(console.log).catch(console.log);
 ```
+
+
+-BET API
+
+Add Bearer token to header
+```
+GET http://<domain>/api/bet
+
+token is pass through the redirection of game.
+
+Sample response
+
+let data = {
+    "ballSelected": [
+        1,
+        2,
+        3,
+        4,
+        80
+    ],
+    "betAmount": 1,
+    "id": <playerID>
+}
+
+const config = {
+    headers: { Authorization: `Bearer ${token}` }
+};
+Axios.post('http://<domain>/api/players/me/details',data,config)
+    .then(console.log).catch(console.log);
+
+

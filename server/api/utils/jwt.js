@@ -31,11 +31,5 @@ export const decode = (token) => {
     return new Promise((resolve) => {
         let jwtDecoded = jwt.verify(token, 'RESTFULAPIs');
         resolve(jwtDecoded);
-    })
-    // try {
-    //     var decoded = await jwt.verify(token, 'RESTFULAPIs');
-    //     console.log((decoded))
-    //   } catch(err) {
-    //     // err
-    //   }
+    });
 }

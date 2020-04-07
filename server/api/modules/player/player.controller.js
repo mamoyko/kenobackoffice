@@ -97,12 +97,21 @@ class PlayerController {
             let jwt = authorization.split('Bearer ')[1]
             let decodeData = await decode(jwt);
             let player = await PlayerModel.findOne({_id:decodeData._id});
-            res.json(player)
+            if (player){
+                res.json(player)
+            } else {
+                res.status(403).json({
+                    message: 'Invalid data',
+                    id: 103,
+                    success: false,
+                });
+            }
         } catch(err){
             res.status(403).json({
-                message: 'invalid player details',
-                success: false
-            })
+                message: 'Invalid data',
+                id: 100,
+                success: false,
+            });
         }
     }
 

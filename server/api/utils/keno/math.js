@@ -16,10 +16,11 @@ const payTable = [
 const pick10 = () => {
   return new Promise((resolve, reject) => {
     const picks = [];
-    while (picks.length < 10) {
+    while (picks.length < 20) {
       const pick = getRandomIntInclusive(1, 80);
       if (!picks.includes(pick)) picks.push(pick);
     }
+    console.log(picks)
     resolve(picks);
   })
 };

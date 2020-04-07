@@ -15,7 +15,8 @@ class BetController {
 
     _getBetsById = async (req,res,next) => {
         try {
-            let bet = await betModel.find({player:req.params.id}).populate('player')
+            let bet = await betModel.find({player:req.params.id})
+            .populate('player')
             res.json(bet);
         } catch(err){
             console.log({err:true,message: err})

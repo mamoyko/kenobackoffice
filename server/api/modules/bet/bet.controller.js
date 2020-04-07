@@ -41,10 +41,13 @@ class BetController {
             }
         } catch(err){
             console.log(err)
-            res.json({error:true})
+            res.status(403).json({
+                message: 'Invalid data',
+                id: 100,
+                success: false,
+            });
         }
     }
-    
 }
 
 

@@ -20,7 +20,6 @@ const pick10 = () => {
       const pick = getRandomIntInclusive(1, 80);
       if (!picks.includes(pick)) picks.push(pick);
     }
-    console.log(picks)
     resolve(picks);
   })
 };

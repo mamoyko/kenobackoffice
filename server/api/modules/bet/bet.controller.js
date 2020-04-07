@@ -26,10 +26,18 @@ class BetController {
     _addBet = async (req,res,next) => {
         try {
             let player = await PlayerModel.findById(req.body.id);
-            if(player){
-                let data = await getResponseObj(req.body);
-                let newBet = await betModel.create(data.data);
-                res.json(newBet);
+            if (req.body.betAmount > player.balance) {
+                res.status(403).json({
+                    message: 'Not Enough Balance',
+                    id: 101,
+                    success: false,
+                });
+            } else {
+                if(player){
+                    let data = await getResponseObj(req.body);
+                    let newBet = await betModel.create(data.data);
+                    res.json(newBet);
+                }
             }
         } catch(err){
             console.log(err)

@@ -87,8 +87,12 @@ const AffiliateViewComponent = () => {
 
 
   const getLeadSource = id => {
-    const lead = leads.find(item => item.id === parseInt(id));
-    return lead.leadSourceName;
+    if (id){
+      const lead = leads.find(item => item.id === parseInt(id));
+      return lead.leadSourceName;
+    } else {
+      return "";
+    }
   };
   return (
     <Container fluid>

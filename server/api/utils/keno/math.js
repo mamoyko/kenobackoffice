@@ -22,8 +22,7 @@ const pick10 = () => {
       const pick = getRandomIntInclusive(1, 80);
       if (!picks.includes(pick)) picks.push(pick);
     }
-    resolve([66,32,11,50,14,41,46,64,20,27,18,34,15,22,12,69,36,49,45,31])
-    //resolve(picks);
+    resolve(picks);
   })
 };
 

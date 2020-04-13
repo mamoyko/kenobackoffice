@@ -19,6 +19,8 @@ PlayerRouter.delete('/:id', authenticateJWT, playerCtrl._deletePlayer);
 
 PlayerRouter.post('/admin', authenticateJWT, playerCtrl._adminAddPlayer);
 
+PlayerRouter.get('/dashboard/details', authenticateJWT, playerCtrl._dashboardDetails)
+
 //for player api
 
 PlayerRouter.post('/login', playerCtrl._signInPlayers);

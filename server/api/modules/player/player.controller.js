@@ -1,5 +1,6 @@
 import passport from 'passport'
 import PlayerModel from './player.model';
+import BetModel from '../bet/bet.model'
 import UserModel from '../user/user.model';
 import { getJWTFunc, decode } from '../../utils/jwt'
 import bcrypt from "bcrypt";
@@ -117,6 +118,39 @@ class PlayerController {
                 id: 100,
                 success: false,
             });
+        }
+    }
+
+    _dashboardDetails = async (req,res,next) => {
+        try {
+            let poolNumber = parseInt(req.query.pool);
+            let betAmount = parseFloat(req.query.bet);
+            let query = {"draw.keno_count": poolNumber - 1, betAmount:betAmount};
+            console.log(query)
+            BetModel.aggregate([
+                { $match : query },
+                {
+                    $group: {
+                        _id: "$player", 
+                        totalBet: { $sum: "$betAmount" }
+                    } 
+                },
+                {
+                    $lookup:
+                       {
+                          from: "players",
+                          localField: "_id",
+                          foreignField: "_id",
+                          as: "info"
+                      }
+                 }
+            ])
+            .then((result) => {
+                res.json(result);
+            })
+        } catch(err){
+            console.log(err)
+            res.status.json({err:'error'});
         }
     }
 

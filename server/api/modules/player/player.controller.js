@@ -3,6 +3,7 @@ import PlayerModel from './player.model';
 import UserModel from '../user/user.model';
 import { getJWTFunc, decode } from '../../utils/jwt'
 import bcrypt from "bcrypt";
+import { payout } from '../../utils/keno/payout';
 
 class PlayerController {
     
@@ -96,9 +97,12 @@ class PlayerController {
             let authorization =  req.headers.authorization;
             let jwt = authorization.split('Bearer ')[1]
             let decodeData = await decode(jwt);
-            let player = await PlayerModel.findOne({_id:decodeData._id});
+            let player = await PlayerModel.findOne({_id:decodeData._id}).select("-address -password -active -affiliate -phone -date_created");
             if (player){
-                res.json(player)
+               res.json({
+                player: player,
+                payout: payout
+               })
             } else {
                 res.status(403).json({
                     message: 'Invalid data',

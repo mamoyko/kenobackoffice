@@ -97,11 +97,12 @@ class PlayerController {
             let authorization =  req.headers.authorization;
             let jwt = authorization.split('Bearer ')[1]
             let decodeData = await decode(jwt);
-            let player = await PlayerModel.findOne({_id:decodeData._id}).select("-address -password -active -affiliate -phone -date_created");
+            let player = await PlayerModel.findOne({_id:decodeData._id}).select("-address -password -affiliate -phone -date_created");
             if (player){
                res.json({
                 player: player,
-                payout: payout
+                payout: payout,
+                maintainance: 0
                })
             } else {
                 res.status(403).json({

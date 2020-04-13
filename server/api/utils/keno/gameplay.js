@@ -22,7 +22,8 @@ const getResponseObj = async (data) => {
           balance: newPlayer.balance,
           winner: reward > 0,
           player: data.id,
-          transaction_id: uniqid()
+          transaction_id: uniqid(),
+          points: 0
         },
       };
 }

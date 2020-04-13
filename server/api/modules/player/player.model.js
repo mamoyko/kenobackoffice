@@ -37,6 +37,11 @@ const PlayerSchema = new Schema({
     default: true
   },
 
+  points: {
+    type: Number,
+    default:0
+  },
+
   address: {
     street: {type: String},
     unitNo: {type: String},

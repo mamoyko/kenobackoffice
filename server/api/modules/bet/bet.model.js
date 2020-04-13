@@ -53,6 +53,11 @@ balance: {
   default:0
 },
 
+points:{
+  type: Number,
+  default:0
+},
+
 date_created : {
     type : Date,
     default : function(){
